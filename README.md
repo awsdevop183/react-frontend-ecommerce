@@ -35,7 +35,7 @@ npm run dev          # http://localhost:5173
 - Cart with quantity steppers, stock caps and live totals
 - Checkout with per-field validation, then an order confirmation
 
-**Behaviour worth pointing out on camera**
+**Behaviour**
 - **Filters live in the URL.** `/products?categoryId=audio&sort=price-asc` is
   shareable, bookmarkable, and the back button works. Reload and the view survives.
 - **The cart persists** to `localStorage`, so it is still there after a refresh.

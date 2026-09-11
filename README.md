@@ -2,7 +2,7 @@
 
 A sample e-commerce frontend built with React + Vite. Browse a catalog, filter it,
 open a product, build a cart that survives a refresh, and complete a validated
-checkout.
+checkout...
 
 There is no backend yet. The app talks to a small API layer that currently answers
 from a local seed catalog, so the whole storefront runs on its own — and the backend

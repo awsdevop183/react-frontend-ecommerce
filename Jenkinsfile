@@ -1,7 +1,15 @@
+@Library("shared-library") _
 pipeline {
     agent {label 'agent-1'}
 
     stages {
+        stage('Hello Jenkins) {
+            steps {
+                scripts {
+                    test()
+                }
+            }
+        }
         stage('Clone repo') {
             steps {
                 git url: "https://github.com/awsdevop183/react-frontend-ecommerce.git", branch: "main"

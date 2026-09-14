@@ -17,15 +17,10 @@ pipeline {
             }
             }
         }
-        // stage('Push image to Dockerhub') {
-        //     steps {
-        //         sh "docker build - ."
-        //     }
-        // }
         stage('create a container') {
             steps {
-                sh "docker rm -f dev || true"
-                sh "docker run -d --name dev -p 80:80 awsdevops183/jenkinstest"
+                sh "docker compose up -d"
+                // sh "docker run -d --name dev -p 80:80 awsdevops183/jenkinstest"
             }
         }
     }

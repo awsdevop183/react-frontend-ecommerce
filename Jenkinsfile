@@ -22,6 +22,7 @@ pipeline {
                     clone('https://github.com/awsdevop183/react-frontend-ecommerce.git','main')
             }
         }
+         }
          stage('Build Docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'user', passwordVariable: 'pass')]) {

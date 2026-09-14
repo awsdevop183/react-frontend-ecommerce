@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Hello Jenkins') {
             steps {
-                scripts {
+                script {
                     test()
                 }
             }

@@ -1,0 +1,7 @@
+services:
+  nginx:
+    image: awsdevops183/jenkinstest
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"

@@ -3,16 +3,23 @@ pipeline {
     agent {label 'agent-1'}
 
     stages {
-        stage('Hello Jenkins') {
+        // stage('Hello Jenkins') {
+        //     steps {
+        //         script {
+        //             test()
+        //         }
+        //     }
+        // }
+        // stage('Clone repo') {
+        //     steps {
+        //         git url: "https://github.com/awsdevop183/react-frontend-ecommerce.git", branch: "main"
+        //     }
+        // }
+
+         stage('Clone repo') {
             steps {
                 script {
-                    test()
-                }
-            }
-        }
-        stage('Clone repo') {
-            steps {
-                git url: "https://github.com/awsdevop183/react-frontend-ecommerce.git", branch: "main"
+                    clone('https://github.com/awsdevop183/react-frontend-ecommerce.git','main')
             }
         }
          stage('Build Docker image') {

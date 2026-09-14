@@ -3,7 +3,7 @@ pipeline {
     agent {label 'agent-1'}
 
     stages {
-        stage('Hello Jenkins) {
+        stage('Hello Jenkins') {
             steps {
                 scripts {
                     test()

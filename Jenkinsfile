@@ -35,7 +35,7 @@ pipeline {
         )
 
         dependencyCheckPublisher(
-            pattern: 'dependency-check-report/dependency-check-report.xml'
+            pattern: '**/dependency-check-report.xml'
         )
     }
 }

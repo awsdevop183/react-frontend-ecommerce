@@ -1,28 +1,38 @@
-@Library("shared-library") _
 pipeline {
     agent {label 'agent-1'}
+    environment {
+        SONAR_HOME = tool 'sonar'
+    }
 
     stages {
-        // stage('Hello Jenkins') {
-        //     steps {
-        //         script {
-        //             test()
-        //         }
-        //     }
-        // }
-        // stage('Clone repo') {
-        //     steps {
-        //         git url: "https://github.com/awsdevop183/react-frontend-ecommerce.git", branch: "main"
-        //     }
-        // }
 
          stage('Clone repo') {
             steps {
-                script {
-                    clone('https://github.com/awsdevop183/react-frontend-ecommerce.git','main')
+                git url: 'https://github.com/awsdevop183/react-frontend-ecommerce.git',branch: 'main'
             }
         }
+         stage("Static code analysis with SonarQube") {
+            steps {
+                withSonarQubeEnv("sonar") {
+                    sh "$SONAR_HOME/bin/sonar-scanner -Dsonar.projectKey=devsecopsb03 -Dsonar.projectName=demo"
+                }
+
+            }
          }
+
+         stage("Dependency scan") {
+            steps {
+               dependencyCheck additionalArguments: '--scan ./ --format ALL', odcInstallation: 'OWASP'
+               dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+
+            }
+         }
+         stage("Scan filesystem using Trivy") {
+            steps {
+                sh "trivy fs -f table -o trivy-output.xml ."
+            }
+         }
+
          stage('Build Docker image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'user', passwordVariable: 'pass')]) {
@@ -44,6 +54,3 @@ pipeline {
 
 }
 
-
-
-// withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'user', passwordVariable: 'pass')])

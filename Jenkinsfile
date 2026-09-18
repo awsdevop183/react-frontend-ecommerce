@@ -20,13 +20,26 @@ pipeline {
             }
          }
 
-         stage("Dependency scan") {
-            steps {
-               dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'OWASP'
-               dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+         // stage("Dependency scan") {
+         //    steps {
+         //       dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'OWASP'
+         //       dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
 
-            }
-         }
+         //    }
+         // }
+        stage("Dependency scan") {
+    steps {
+        dependencyCheck(
+            additionalArguments: '--scan ./ --format ALL --out dependency-check-report',
+            odcInstallation: 'OWASP'
+        )
+
+        dependencyCheckPublisher(
+            pattern: 'dependency-check-report/dependency-check-report.xml'
+        )
+    }
+}
+
          stage("Scan filesystem using Trivy") {
             steps {
                 sh "trivy fs -f table -o trivy-output.xml ."
